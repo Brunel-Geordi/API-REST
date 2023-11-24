@@ -8,14 +8,14 @@ const secretKey = process.env.SECRET_KEY;
 
 router.post("/create", async (req, res) => {
   try {
-    const { email, username, password } = req.body;
+    const { username, password } = req.body;
     await User.create({
-      email,
       username,
       password: bcrypt.hashSync(password + process.env.HASH_KEY, saltRounds),
     });
     res.status(201).json({ message: "Utilisateur créer avec succes" });
   } catch (error) {
+    console.log(res)
     res.status(422).json({ message: "Impossible de créer l'utilisateur" });
   }
 });

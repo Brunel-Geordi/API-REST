@@ -11,10 +11,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
 
 app.use("/user", userRouter);
-app.use("/user", authUser);
+//app.use("/user", authUser);
 
 app.listen(3000, () => {
   console.log("Le serveur est en cours d'écoute sur le port 3000");
 });
-
-console.log(user === sequelize.models.User);
