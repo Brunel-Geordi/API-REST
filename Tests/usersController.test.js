@@ -1,13 +1,12 @@
 const request = require('supertest');
-const app = require('../controllers/users.controller');
-// const sequelize = require("../setup/database");
- // Mettez le chemin correct vers votre fichier d'application
+const app = require('../index');
 
 describe('User Routes', () => {
   it('should create a new user', async () => {
     const response = await request(app)
-      .post('/create')
+      .post('/user/create')
       .send({
+        email: 'testmail@mail.com',
         username: 'testuser',
         password: 'testpassword',
       });
@@ -18,7 +17,7 @@ describe('User Routes', () => {
 
   it('should authenticate a user', async () => {
     const response = await request(app)
-      .get('/')
+      .get('/user')
       .query({
         username: 'testuser',
         password: 'testpassword',
@@ -30,13 +29,12 @@ describe('User Routes', () => {
 
   it('should not authenticate a user with incorrect credentials', async () => {
     const response = await request(app)
-      .get('/')
+      .get('/user')
       .query({
         username: 'testuser',
         password: 'incorrectpassword',
       });
 
     expect(response.status).toBe(401);
-    // Ajoutez d'autres assertions si nécessaire.
   });
 });
